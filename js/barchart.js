@@ -17,6 +17,7 @@ const yTooltipOffset = 15;
 
 
 // TODO: What does this code do? 
+// Appends an svg to the hard coded bar div. Puts it in a viewbox.
 const svg1 = d3
   .select("#hard-coded-bar")
   .append("svg")
@@ -42,26 +43,32 @@ const data1 = [
 */ 
 
 // TODO: What does this code do? 
+// Returns the max value in the data1 array
 let maxY1 = d3.max(data1, function(d) { return d.score; });
 
-// TODO: What does each line of this code do?   
+// TODO: What does each line of this code do?
+// Declare a y scale as linear, set the scale from 0 to that max value, and sets its visible height.   
 let yScale1 = d3.scaleLinear()
             .domain([0,maxY1])
             .range([height-margin.bottom,margin.top]); 
 
 // TODO: What does each line of this code do? 
+// Declare an x scale as bands, set the domain as the number of entries in data 1, sets the range as the horizontal length,
+// and pads the spaces between the bars
 let xScale1 = d3.scaleBand()
             .domain(d3.range(data1.length))
             .range([margin.left, width - margin.right])
             .padding(0.1); 
 
 // TODO: What does each line of this code do?  
+// Creates the y scale numbers, appends them to the y-axis, and sets the font size
 svg1.append("g")
    .attr("transform", `translate(${margin.left}, 0)`) 
    .call(d3.axisLeft(yScale1)) 
    .attr("font-size", '20px'); 
 
 // TODO: What does each line of this code do? 
+// Creates the x scale, appends it to the x axis with the name corresponding to data1's names, and sets font size
 svg1.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`) 
     .call(d3.axisBottom(xScale1) 
@@ -75,6 +82,7 @@ svg1.append("g")
 */
 
 // TODO: What does each line of this code do? 
+// appends a tooltip to hard-coded-bar with opacity 0 and class of tooltip
 const tooltip1 = d3.select("#hard-coded-bar") 
                 .append("div") 
                 .attr('id', "tooltip1") 
@@ -82,18 +90,21 @@ const tooltip1 = d3.select("#hard-coded-bar")
                 .attr("class", "tooltip"); 
 
 // TODO: What does each line of this code do?  
+// Mouseover function for tooltip1 that changes the opacity and reveals the stats.
 const mouseover1 = function(event, d) {
   tooltip1.html("Name: " + d.name + "<br> Score: " + d.score + "<br>") 
           .style("opacity", 1);  
 }
 
 // TODO: What does each line of this code do? 
+// moves the tooltip along with the mouse
 const mousemove1 = function(event, d) {
   tooltip1.style("left", (event.x)+"px") 
           .style("top", (event.y + yTooltipOffset) +"px"); 
 }
 
 // TODO: What does this code do? 
+// sets the opacity of the tooltip to 0 if the mouse leaves it.
 const mouseleave1 = function(event, d) { 
   tooltip1.style("opacity", 0); 
 }
@@ -105,6 +116,7 @@ const mouseleave1 = function(event, d) {
 */
 
 // TODO: What does each line of this code do? 
+// creates the bar chart from the data1, scales that we created, and ties the mouse-events to it.
 svg1.selectAll(".bar") 
    .data(data1) 
    .enter()  
