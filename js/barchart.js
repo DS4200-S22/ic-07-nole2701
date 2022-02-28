@@ -25,6 +25,24 @@ const svg1 = d3
   .attr("height", height - margin.top - margin.bottom)
   .attr("viewBox", [0, 0, width, height]);
 
+const svg2 = d3
+  .select("#csv-bar")
+  .append("svg")
+  .attr("width", width-margin.left-margin.right)
+  .attr("height", height - margin.top - margin.bottom)
+  .attr("viewBox", [0, 0, width, height]);
+
+console.log("lakdf;kjf");
+
+
+
+d3.csv("/data/barchart.csv").then((data) => {
+  let maxY2;
+  console.log(data);
+  maxY2 = d3.max(data, function(d) { return d.score; });
+  console.log(maxY2);
+})
+
 // Hardcoded barchart data
 const data1 = [
   {name: 'A', score: 92},
@@ -35,7 +53,6 @@ const data1 = [
   {name: 'F', score: 91},
   {name: 'G', score: 18}
 ];
-
 /*
 
   Axes
@@ -45,6 +62,7 @@ const data1 = [
 // TODO: What does this code do? 
 // Returns the max value in the data1 array
 let maxY1 = d3.max(data1, function(d) { return d.score; });
+console.log(maxY1);
 
 // TODO: What does each line of this code do?
 // Declare a y scale as linear, set the scale from 0 to that max value, and sets its visible height.   
